@@ -1,1 +1,31 @@
 /.config
+
+# Build results
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+[Bb]uild/
+
+# Visual Studio files
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# NuGet packages
+packages/
+*.nupkg
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test results
+TestResults/
+*.trx
