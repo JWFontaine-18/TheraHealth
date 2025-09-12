@@ -3,6 +3,10 @@
 # Build results
 bin/
 obj/
+*.pdb
+*.dll
+*.cache
+*.txts
 [Dd]ebug/
 [Rr]elease/
 [Bb]uild/
@@ -26,6 +30,4 @@ packages/
 .DS_Store
 Thumbs.db
 
-# Test results
-TestResults/
-*.trx
+
