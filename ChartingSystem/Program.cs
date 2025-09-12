@@ -100,18 +100,22 @@ public class Program
     {
         Console.WriteLine("\n***CREATING NEW BOOKING***");
         
-        DateTime appointmentTime = InputHelper.GetValidDateTime("Enter appointment date and time (MM/DD/YYYY HH:MM): ");
+        DateTime appointmentTime;
+        while (true)
+        {
+            appointmentTime = InputHelper.GetValidDateTime("Enter appointment date and time (MM/DD/YYYY HH:MM): ");
+            
+            if (manager.isPhysicanAvailable(physician, appointmentTime) && manager.isValidBooking(appointmentTime))
+            {
+                break;
+            }
+            
+            Console.WriteLine("Sorry, that time slot is already booked or invalid. Please choose a different date and time.");
+        }
         
-        if (manager.isPhysicanAvailable(physician, appointmentTime) && manager.isValidBooking(appointmentTime))
-        {
-            Booking booking = new Booking(patient, physician, appointmentTime);
-            manager.AddBooking(booking);
-            Console.WriteLine("Booking created successfully!");
-        }
-        else
-        {
-            Console.WriteLine("Sorry, that time slot is already booked or invalid.");
-        }
+        Booking booking = new Booking(patient, physician, appointmentTime);
+        manager.AddBooking(booking);
+        Console.WriteLine("Booking created successfully!");
     }
 
 
