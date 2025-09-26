@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net.Sockets;
 
-namespace ChartingSystem
+namespace Library.TheraHealth.Models
 {
     public enum Gender
     {
@@ -48,12 +48,6 @@ namespace ChartingSystem
             this.bDay = bDay;
         }
 
-        public int getAge(DateOnly bday)
-        {
-            int currentYear = DateTime.Now.Year;
-            int age = currentYear - bday.Year;
-            return age;
-        }
 
         public override string ToString()
         {

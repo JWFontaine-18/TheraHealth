@@ -1,11 +1,11 @@
 using System;
 
-namespace ChartingSystem;
+namespace Library.TheraHealth.Models;
 
 public class Physician
 {
-    internal string name { get; set; }
-    internal int license { get; set; }
+    internal string? name { get; set; }
+    internal int? license { get; set; }
 
     internal DateOnly graduation { get; set; }
 

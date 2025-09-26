@@ -1,5 +1,7 @@
 using System;
 using System.Text;
+using Library.TheraHealth.Models;
+using Library.TheraHealth.Services;
 
 namespace ChartingSystem;
 
@@ -9,6 +11,7 @@ public class Program
 
     public static void Main(string[] args)
     {
+        List<Patient?> patients = PatientServiceProxy.Current.Patients;
         bool continueRunning = true;
         
         while (continueRunning)
@@ -25,10 +28,10 @@ public class Program
                     DisplayAllApplications();
                     break;
                 case "P":
-                    DisplayAllPatients();
+                    PatientServiceProxy.DisplayAllPatients(manager);
                     break;
                 case "D":
-                    DisplayAllPhysicians();
+                    PhysicianServiceProxy.DisplayAllPhysicians(manager);
                     break;
                 case "Q":
                     continueRunning = false;
@@ -53,48 +56,15 @@ public class Program
 
     private static void CreateNewApplication()
     {
-        Patient patient = CreatePatient();
+        Patient patient = PatientServiceProxy.Current.CreatePatient(manager);
         if (patient == null) return;
 
-        Physician physician = CreatePhysician();
+        Physician physician = PhysicianServiceProxy.Current.CreatePhysician(manager);
         if (physician == null) return;
 
         CreateBooking(patient, physician);
     }
 
-    private static Patient CreatePatient()
-    {
-        Console.WriteLine("\n***CREATING NEW PATIENT***");
-        
-        string name = InputHelper.GetValidString("Enter name of Patient: ");
-        string address = InputHelper.GetValidString("Enter Address of Patient: ");
-        DateOnly birthday = InputHelper.GetValidDate("Enter Birthday of Patient (MM/DD/YYYY): ");
-        Race race = InputHelper.GetValidEnum<Race>("Enter Race of Patient: ");
-        Gender gender = InputHelper.GetValidEnum<Gender>("Enter Gender of Patient: ");
-        string notes = InputHelper.GetValidString("Enter Medical Notes of Patient: ");
-        
-        Patient patient = new Patient(name, address, notes, race, gender, birthday);
-        manager.AddPatient(patient);
-        Console.WriteLine("Patient created successfully!");
-        
-        return patient;
-    }
-
-    private static Physician CreatePhysician()
-    {
-        Console.WriteLine("\n***CREATING NEW PHYSICIAN***");
-        
-        string name = InputHelper.GetValidString("Enter name of Physician: ");
-        int license = InputHelper.GetValidInteger("Enter license number of Physician: ");
-        DateOnly graduationDate = InputHelper.GetValidDate("Enter Graduation Date of Physician (MM/DD/YYYY): ");
-        string specialization = InputHelper.GetValidString("Enter Specialization of Physician: ");
-        
-        Physician physician = new Physician(name, license, graduationDate, specialization);
-        manager.AddPhysician(physician);
-        Console.WriteLine("Physician created successfully!");
-        
-        return physician;
-    }
 
     private static void CreateBooking(Patient patient, Physician physician)
     {
@@ -125,37 +95,4 @@ public class Program
         Console.WriteLine(manager);
     }
 
-    private static void DisplayAllPatients()
-    {
-        Console.WriteLine("\n--- All Patients ---");
-        var patients = manager.GetPatients();
-        
-        if (patients.Count == 0)
-        {
-            Console.WriteLine("No patients found.");
-            return;
-        }
-        
-        foreach (var patient in patients)
-        {
-            Console.WriteLine(patient);
-        }
-    }
-
-    private static void DisplayAllPhysicians()
-    {
-        Console.WriteLine("\n--- All Physicians ---");
-        var physicians = manager.GetPhyscians();
-        
-        if (physicians.Count == 0)
-        {
-            Console.WriteLine("No physicians found.");
-            return;
-        }
-        
-        foreach (var physician in physicians)
-        {
-            Console.WriteLine(physician);
-        }
-    }
 }
