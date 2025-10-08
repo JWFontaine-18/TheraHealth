@@ -62,30 +62,7 @@ public class Program
         Physician physician = PhysicianServiceProxy.Current.CreatePhysician(manager);
         if (physician == null) return;
 
-        CreateBooking(patient, physician);
-    }
-
-
-    private static void CreateBooking(Patient patient, Physician physician)
-    {
-        Console.WriteLine("\n***CREATING NEW BOOKING***");
-        
-        DateTime appointmentTime;
-        while (true)
-        {
-            appointmentTime = InputHelper.GetValidDateTime("Enter appointment date and time (MM/DD/YYYY HH:MM): ");
-            
-            if (manager.isPhysicanAvailable(physician, appointmentTime) && manager.isValidBooking(appointmentTime))
-            {
-                break;
-            }
-            
-            Console.WriteLine("Sorry, that time slot is already booked or invalid. Please choose a different date and time.");
-        }
-        
-        Booking booking = new Booking(patient, physician, appointmentTime);
-        manager.AddBooking(booking);
-        Console.WriteLine("Booking created successfully!");
+        BookingsServiceProxy.Current.CreateBooking(patient, physician, manager);
     }
 
 
