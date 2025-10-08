@@ -8,5 +8,10 @@ public partial class MainPage : ContentPage
 		InitializeComponent();
 	}
 
+	private void AppointmentClicked(object sender, EventArgs e)
+	{
+		Shell.Current.GoToAsync("//Appointments");
+    }
+
 }
 
