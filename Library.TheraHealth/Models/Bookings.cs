@@ -1,6 +1,6 @@
 using System;
 
-namespace ChartingSystem;
+namespace Library.TheraHealth.Models;
 
 public class Booking
 {

@@ -5,6 +5,10 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChartingSystem", "ChartingSystem\ChartingSystem.csproj", "{71C4E98C-13B4-4705-8A9F-2F45EBE59066}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.TheraHealth", "Library.TheraHealth\Library.TheraHealth.csproj", "{3F03285C-8E67-41E8-BF1F-0D3DE365E9EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maui.TheraHealth", "Maui.TheraHealth\Maui.TheraHealth.csproj", "{E846B228-AC38-4B1D-9719-077FF4E356FE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +22,13 @@ Global
 		{71C4E98C-13B4-4705-8A9F-2F45EBE59066}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71C4E98C-13B4-4705-8A9F-2F45EBE59066}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71C4E98C-13B4-4705-8A9F-2F45EBE59066}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F03285C-8E67-41E8-BF1F-0D3DE365E9EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F03285C-8E67-41E8-BF1F-0D3DE365E9EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F03285C-8E67-41E8-BF1F-0D3DE365E9EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F03285C-8E67-41E8-BF1F-0D3DE365E9EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E846B228-AC38-4B1D-9719-077FF4E356FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E846B228-AC38-4B1D-9719-077FF4E356FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E846B228-AC38-4B1D-9719-077FF4E356FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E846B228-AC38-4B1D-9719-077FF4E356FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
