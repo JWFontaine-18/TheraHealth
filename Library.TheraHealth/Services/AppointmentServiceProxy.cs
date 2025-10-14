@@ -10,23 +10,7 @@ public class AppointmentServiceProxy
     // private PhysicianServiceProxy _physicianSvc;
     private AppointmentServiceProxy()
     {
-        // _patientSvc = PatientServiceProxy.Current;
-        // _physicianSvc = PhysicianServiceProxy.Current;
-        Appointments = new List<Appointment?>
-        {
-            new Appointment {Id = 1
-            , PatientId = 1
-            , PhysicianId = 1
-            // , Patient = _patientSvc.Patients.FirstOrDefault(p => p.Id == 1)
-            // , Physician = _physicianSvc.Physicians.FirstOrDefault(p => p.Id == 1) 
-            },
-            new Appointment {Id = 2
-            , PatientId = 2
-            , PhysicianId = 2
-            // , Patient = _patientSvc.Patients.FirstOrDefault(p => p.Id == 2)
-            // , Physician = _physicianSvc.Physicians.FirstOrDefault(p => p.Id == 2) 
-            },
-        };
+        Appointments = new List<Appointment?>();
     }
     private static AppointmentServiceProxy? instance;
     private static object instanceLock = new object();
@@ -34,8 +18,8 @@ public class AppointmentServiceProxy
     {
         get
         {
-            lock(instanceLock)
-            { 
+            lock (instanceLock)
+            {
                 if (instance == null)
                 {
                     instance = new AppointmentServiceProxy();
@@ -44,6 +28,35 @@ public class AppointmentServiceProxy
 
             return instance;
         }
+    }
+
+    public List<Appointment?> Appointment
+    {
+        get
+        {
+            return Appointments;
+        }
+    }
+    public Appointment? AddOrUpdate(Appointment? appointment)
+    {
+        if (appointment == null)
+        {
+            return null;
+        }
+        
+        return appointment;
+
+    }
+    public Appointment? Delete(int id)
+    {
+        //get blog object
+        var apptToDel = Appointments
+            .Where(b => b != null)
+            .FirstOrDefault(b => (b?.Id ?? -1) == id);
+        //delete it!
+        Appointments.Remove(apptToDel);
+
+        return apptToDel;
     }
 }
 
