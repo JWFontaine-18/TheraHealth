@@ -8,11 +8,7 @@ public class PatientServiceProxy
     public List<Patient?> Patients { get; set; }
     private PatientServiceProxy()
     {
-        Patients = new List<Patient?>
-        {
-            new Patient {Id = 1, Name = "John Doe" },
-            new Patient {Id = 2, Name = "Jane Doe" }
-        };
+        Patients = new List<Patient?>();
     }
     private static PatientServiceProxy? instance;
     private static object instanceLock = new object();
@@ -31,13 +27,34 @@ public class PatientServiceProxy
             return instance;
         }
     }
-
-    public Patient? GetById(int id)
+    
+    public List<Patient?> Patient
     {
-        if (id <= 0)
+        get
+        {
+            return Patient;
+        }
+    }
+
+    public Patient? AddOrUpdate(Patient? patient)
+    {
+        if (patient == null)
         {
             return null;
         }
-        return Patients.FirstOrDefault(p => p.Id == id);
+        
+        return patient;
+
+    }
+    public Patient? Delete(int id)
+    {
+        //get blog object
+        var PatToDel = Patient
+            .Where(b => b != null)
+            .FirstOrDefault(b => (b?.Id ?? -1) == id);
+        //delete it!
+        Patient.Remove(PatToDel);
+
+        return PatToDel;
     }
 }

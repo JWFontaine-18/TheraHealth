@@ -8,11 +8,7 @@ public class PhysicianServiceProxy
     public  List<Physician?> Physicians { get; set; }
     private PhysicianServiceProxy()
     {
-        Physicians = new List<Physician?>
-        {
-            new Physician {Id = 1, Name = "John Doe" },
-            new Physician {Id = 2, Name = "Jane Doe" }
-        };
+        Physicians = new List<Physician?>();
     }
     private static PhysicianServiceProxy? instance;
     private static object instanceLock = new object();
@@ -20,8 +16,8 @@ public class PhysicianServiceProxy
     {
         get
         {
-            lock(instanceLock)
-            { 
+            lock (instanceLock)
+            {
                 if (instance == null)
                 {
                     instance = new PhysicianServiceProxy();
@@ -30,6 +26,36 @@ public class PhysicianServiceProxy
 
             return instance;
         }
+    }
+    
+    public List<Physician?> Physician
+    {
+        get
+        {
+            return Physician;
+        }
+    }
+
+    public Physician? AddOrUpdate(Physician? physician)
+    {
+        if (physician == null)
+        {
+            return null;
+        }
+        
+        return physician;
+
+    }
+    public Physician? Delete(int id)
+    {
+        //get blog object
+        var PhysToDel = Physician
+            .Where(b => b != null)
+            .FirstOrDefault(b => (b?.Id ?? -1) == id);
+        //delete it!
+        Physician.Remove(PhysToDel);
+
+        return PhysToDel;
     }
 }
 
