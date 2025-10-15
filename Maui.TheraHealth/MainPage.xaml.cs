@@ -1,4 +1,6 @@
-﻿namespace Maui.TheraHealth;
+﻿using Maui.TheraHealth.ViewModels;
+
+namespace Maui.TheraHealth;
 
 public partial class MainPage : ContentPage
 {
@@ -6,11 +8,12 @@ public partial class MainPage : ContentPage
 	public MainPage()
 	{
 		InitializeComponent();
+		BindingContext = new MainViewModel();
 	}
 
-	private void AppointmentClicked(object sender, EventArgs e)
+    private void AddClicked(object sender, EventArgs e)
 	{
-		Shell.Current.GoToAsync("//Appointments");
+         Shell.Current.GoToAsync("//Appointments");
     }
 
 }

@@ -4,7 +4,7 @@
              x:Class="Maui.TheraHealth.MainPage">
 
     <ScrollView>
-        <Button Text="Schedule an Appointment" Clicked="AppointmentClicked"/>
+        <Button Text="Add" Clicked="AddClicked"/>
     </ScrollView>
 
 </ContentPage>
