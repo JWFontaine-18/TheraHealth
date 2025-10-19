@@ -5,7 +5,7 @@ namespace Library.TheraHealth.Services;
 
 public class PatientServiceProxy
 {
-    public List<Patient?> Patients { get; set; }
+    public List<Patient?> Patients;
     private PatientServiceProxy()
     {
         Patients = new List<Patient?>();
@@ -42,13 +42,36 @@ public class PatientServiceProxy
         {
             return null;
         }
-        
-        return patient;
 
+        if (patient.Id <= 0)
+        {
+            var maxId = -1;
+            if (Patients.Any())
+            {
+                maxId = Patients.Select(b => b?.Id ?? -1).Max();
+            }
+            else
+            {
+                maxId = 0;
+            }
+            patient.Id = ++maxId;
+            Patients.Add(patient);
+        }
+        else
+        {
+            var patToEdit = Patients.FirstOrDefault(b => (b?.Id ?? 0) == patient.Id);
+            if (patToEdit != null)
+            {
+                var index = Patients.IndexOf(patToEdit);
+                Patients.RemoveAt(index);
+                Patients.Insert(index, patient);
+            }
+        }
+            return patient;
     }
     public Patient? Delete(int id)
     {
-        //get blog object
+        //get object
         var PatToDel = Patient
             .Where(b => b != null)
             .FirstOrDefault(b => (b?.Id ?? -1) == id);

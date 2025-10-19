@@ -11,5 +11,5 @@ public class Physician
     public DateOnly grad { get; set; }
     
     public string? specialization { get; set; }
-    public int? Id{get; set;}
+    public int Id {get; set;}
 }

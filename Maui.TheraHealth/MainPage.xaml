@@ -1,10 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Maui.TheraHealth.MainPage">
+             x:Class="Maui.TheraHealth.MainPage"
+             NavigatedTo="ContentPage_NavigatedTo"
+             >
 
     <ScrollView>
-        <Button Text="Add" Clicked="AddClicked"/>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+            <Label
+                Text="Thera Health"
+                Style="{StaticResource Headline}"
+                SemanticProperties.HeadingLevel="Level1" />
+            <ListView
+                ItemsSource="{Binding Appointments}"
+                SelectedItem="{Binding selectedAppointment}"
+                >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5*"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Label Text="{Binding Model.Display}" Grid.Column="0"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Button Text="Add" Clicked="AddClicked" />
+            <Button Text="Edit"/>
+            <Button Text="Delete"/>
+        </VerticalStackLayout>
+    
     </ScrollView>
 
 </ContentPage>

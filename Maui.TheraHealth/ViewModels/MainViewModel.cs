@@ -6,7 +6,7 @@ using Library.TheraHealth.Services;
 
 namespace Maui.TheraHealth.ViewModels;
 
-public class MainViewModel
+public class MainViewModel : INotifyPropertyChanged
 {
 
     public ObservableCollection<AppointmentViewModel?> Appointments
@@ -26,11 +26,24 @@ public class MainViewModel
         }
     }
     
-    public string? Query { get; set; }
+
     public void Refresh()
     {
         NotifyPropertyChanged(nameof(Appointments));
     }
+
+    public AppointmentViewModel? selectedAppointment { get; set; }
+    public string? Query { get; set; }
+    public void Delete()
+        {
+            if(selectedAppointment == null)
+            {
+                return;
+            }
+
+            AppointmentServiceProxy.Current.Delete(selectedAppointment?.Model?.Id ?? 0);
+            NotifyPropertyChanged(nameof(Appointments));
+        }
     public event PropertyChangedEventHandler? PropertyChanged;
     private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
     {

@@ -6,7 +6,7 @@ namespace Library.TheraHealth.Models;
 public class Patient
 {
     public string? Name { get; set; }
-    public int? Id { get; set; }
+    public int Id { get; set; }
 
     public string? address { get; set; }
 
@@ -15,5 +15,4 @@ public class Patient
 
     public DateOnly? bDay { get; set; }
 
-    public string? test;
 }

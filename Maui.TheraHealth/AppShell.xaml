@@ -15,7 +15,15 @@
     <ShellContent
         Title="Appointments"
         ContentTemplate="{DataTemplate views:AppointmentsView}"
-        Route="Appointments" />
+        Route="Appointment" />
+    <ShellContent
+        Title="Patients"
+        ContentTemplate="{DataTemplate views:PatientsView}"
+        Route="Patient" />
+    <ShellContent
+        Title="Physicians"
+        ContentTemplate="{DataTemplate views:PhysicianView}"
+        Route="Physician" />
 
     
 

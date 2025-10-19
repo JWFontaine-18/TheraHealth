@@ -6,7 +6,7 @@ public class AppointmentServiceProxy
 {
     public List<Appointment?> Appointments;
 
-    // private PatientServiceProxy _patientSvc;
+    // private AppointmentServiceProxy _appointmentSvc;
     // private PhysicianServiceProxy _physicianSvc;
     private AppointmentServiceProxy()
     {
@@ -43,9 +43,32 @@ public class AppointmentServiceProxy
         {
             return null;
         }
-        
-        return appointment;
 
+        if (appointment.Id <= 0)
+        {
+            var maxId = -1;
+            if (Appointments.Any())
+            {
+                maxId = Appointments.Select(b => b?.Id ?? -1).Max();
+            }
+            else
+            {
+                maxId = 0;
+            }
+            appointment.Id = ++maxId;
+            Appointments.Add(appointment);
+        }
+        else
+        {
+            var appToEdit = Appointments.FirstOrDefault(b => (b?.Id ?? 0) == appointment.Id);
+            if (appToEdit != null)
+            {
+                var index = Appointments.IndexOf(appToEdit);
+                Appointments.RemoveAt(index);
+                Appointments.Insert(index, appointment);
+            }
+        }
+            return appointment;
     }
     public Appointment? Delete(int id)
     {

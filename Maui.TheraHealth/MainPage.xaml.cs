@@ -13,7 +13,12 @@ public partial class MainPage : ContentPage
 
     private void AddClicked(object sender, EventArgs e)
 	{
-         Shell.Current.GoToAsync("//Appointments");
+         Shell.Current.GoToAsync("//Patient");
+    }
+
+    private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
+	{
+        (BindingContext as MainViewModel)?.Refresh();
     }
 
 }
