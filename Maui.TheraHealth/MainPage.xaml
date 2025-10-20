@@ -32,9 +32,10 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <Button Text="Add" Clicked="AddClicked" />
-            <Button Text="Edit"/>
-            <Button Text="Delete"/>
+            <Button Text="Add Patient" Clicked="AddPatient" />
+            <Button Text="Add Physician" Clicked="AddPhysician"/>
+            <Button Text="Edit" Clicked="EditClicked"/>
+            <Button Text="Delete" Clicked="DeleteClicked"/>
         </VerticalStackLayout>
     
     </ScrollView>

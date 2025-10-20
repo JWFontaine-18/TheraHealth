@@ -11,15 +11,33 @@ public partial class MainPage : ContentPage
 		BindingContext = new MainViewModel();
 	}
 
-    private void AddClicked(object sender, EventArgs e)
+	private void AddPatient(object sender, EventArgs e)
 	{
-         Shell.Current.GoToAsync("//Patient");
+		Shell.Current.GoToAsync("//Patient?patientId=0");
+	}
+	
+	private void AddPhysician(object sender, EventArgs e)
+	{
+        Shell.Current.GoToAsync("//Physician?physicianId=0");
     }
 
     private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
 	{
         (BindingContext as MainViewModel)?.Refresh();
     }
+
+    private void EditClicked(object sender, EventArgs e)
+	{
+        var selectedId = (BindingContext as MainViewModel)?.selectedPatient?.Model?.Id ?? 0;
+        Shell.Current.GoToAsync($"//Patient?patientId={selectedId}");
+    }
+
+    private void DeleteClicked(object sender, EventArgs e)
+	{
+		(BindingContext as MainViewModel)?.Delete();
+    }
+
+
 
 }
 

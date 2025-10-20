@@ -4,9 +4,15 @@
              x:Class="Maui.TheraHealth.Views.PhysicianView"
              Title="PhysicianView">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Label Text="Name" />
+        <Entry Text="{Binding Name}"/>
+        <Label Text="License"/>
+        <Entry Text="{Binding license}"/>
+        <Label Text="Grad" />
+        <Entry Text="{Binding grad}"/>
+        <Label Text="specialization"/>
+        <Entry Text="{Binding specialization}"/>
+        <Button Text="Ok" Clicked="OkClicked"/>
+        <Button Text="Cancel" Clicked="CancelClicked"/>
     </VerticalStackLayout>
 </ContentPage>

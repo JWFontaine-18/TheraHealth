@@ -17,5 +17,6 @@
         <Label Text="Birthday"/>
         <Entry Text="{Binding bDay}"/>
         <Button Text="Ok" Clicked="OkClicked"/>
+        <Button Text="Cancel" Clicked="CancelClicked"/>
     </VerticalStackLayout>
 </ContentPage>

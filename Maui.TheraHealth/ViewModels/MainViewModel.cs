@@ -34,15 +34,15 @@ public class MainViewModel : INotifyPropertyChanged
     public PatientViewModel? selectedPatient { get; set; }
     public string? Query { get; set; }
     public void Delete()
+    {
+        if(selectedPatient == null)
         {
-            if(selectedPatient == null)
-            {
-                return;
-            }
-
-            AppointmentServiceProxy.Current.Delete(selectedPatient?.Model?.Id ?? 0);
-            NotifyPropertyChanged(nameof(patients));
+            return;
         }
+
+        PatientServiceProxy.Current.Delete(selectedPatient?.Model?.Id ?? 0);
+        NotifyPropertyChanged(nameof(patients));
+    }
     public event PropertyChangedEventHandler? PropertyChanged;
     private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
     {
