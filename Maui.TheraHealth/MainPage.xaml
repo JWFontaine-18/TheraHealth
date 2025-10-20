@@ -13,6 +13,12 @@
                 Text="Thera Health"
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level1" />
+            <!-- Patients Section -->
+            <Label 
+                Text="Patients"
+                FontAttributes="Bold"
+                FontSize="18"
+                Margin="0,10,0,5" />
             <ListView
                 ItemsSource="{Binding patients}"
                 SelectedItem="{Binding selectedPatient}"
@@ -31,11 +37,37 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <!-- Physicians Section -->
+            <Label 
+                Text="Physicians"
+                FontAttributes="Bold"
+                FontSize="18"
+                Margin="0,20,0,5" />
+            <ListView
+                ItemsSource="{Binding physicians}"
+                SelectedItem="{Binding selectedPhysician}"
+                >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5*"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Label Text="{Binding Model.Display}" Grid.Column="0"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
 
             <Button Text="Add Patient" Clicked="AddPatient" />
             <Button Text="Add Physician" Clicked="AddPhysician"/>
-            <Button Text="Edit" Clicked="EditClicked"/>
-            <Button Text="Delete" Clicked="DeleteClicked"/>
+            <Button Text="EditPatient" Clicked="EditPatient"/>
+            <Button Text="EditPhysician" Clicked="EditPhysician"/>
+            <Button Text="Delete Patient" Clicked="DeletePatient"/>
+            <Button Text="Delete Physician" Clicked="DeletePhysician"/>
         </VerticalStackLayout>
     
     </ScrollView>

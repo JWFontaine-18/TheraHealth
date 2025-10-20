@@ -27,4 +27,22 @@ public class Physician
             Name = physicianCopy.Name;
         }
     }
+
+    public string Display
+    {
+        get
+        {
+            return ToString();
+        }
+    }
+
+    public override string ToString()
+    {
+        if (Name == null)
+        {
+            return $"{Id}";
+        }
+
+        return $"{Id} - {Name}";
+    }
 }

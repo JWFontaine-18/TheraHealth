@@ -3,6 +3,8 @@ using Library.TheraHealth.Services;
 
 namespace Maui.TheraHealth.Views;
 
+
+[QueryProperty(nameof(physicianId), "physicianId")]
 public partial class PhysicianView : ContentPage
 {
 	public int physicianId { get; set; }
@@ -34,4 +36,5 @@ public partial class PhysicianView : ContentPage
     {
         Shell.Current.GoToAsync("//MainPage");
     }
+
 }

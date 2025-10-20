@@ -1,4 +1,7 @@
 using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Library.TheraHealth.Models;
 using Library.TheraHealth.Services;
@@ -7,6 +10,7 @@ namespace Maui.TheraHealth.ViewModels;
 
 public class PhysicianViewModel
 {
+
     public PhysicianViewModel()
     {
         Model = new Physician();
@@ -40,11 +44,15 @@ public class PhysicianViewModel
             return;
         }
         var selectedId = bv?.Model?.Id ?? 0;
-        Shell.Current.GoToAsync($"//Blog?blogId={selectedId}");
+        Shell.Current.GoToAsync($"//Physician?physicianId={selectedId}");
     }
     
     public Physician? Model { get; set; }
     
     public ICommand? DeleteCommand { get; set; }
     public ICommand? EditCommand { get; set; }
+
+
+
+
 }

@@ -9,6 +9,22 @@ namespace Maui.TheraHealth.ViewModels;
 public class MainViewModel : INotifyPropertyChanged
 {
 
+    public ObservableCollection<PhysicianViewModel?> physicians
+    {
+        get
+        {
+            return new ObservableCollection<PhysicianViewModel?>
+            (PhysicianServiceProxy
+            .Current
+            .Physicians
+            .Where(
+                b => b?.Name?.ToUpper()?.Contains(Query?.ToUpper() ?? string.Empty) ?? false
+            )
+            .Select(b => new PhysicianViewModel(b))
+            );
+        }
+    }
+
     public ObservableCollection<PatientViewModel?> patients
     {
         get
@@ -29,19 +45,32 @@ public class MainViewModel : INotifyPropertyChanged
     public void Refresh()
     {
         NotifyPropertyChanged(nameof(patients));
+        NotifyPropertyChanged(nameof(physicians));
     }
 
     public PatientViewModel? selectedPatient { get; set; }
+    public PhysicianViewModel? selectedPhysician { get; set; }
     public string? Query { get; set; }
-    public void Delete()
+    public void DeletePatient()
     {
-        if(selectedPatient == null)
+        if (selectedPatient == null)
         {
             return;
         }
 
         PatientServiceProxy.Current.Delete(selectedPatient?.Model?.Id ?? 0);
         NotifyPropertyChanged(nameof(patients));
+    }
+    
+    public void DeletePhysician()
+    {
+        if(selectedPhysician == null)
+        {
+            return;
+        }
+
+        PhysicianServiceProxy.Current.Delete(selectedPhysician?.Model?.Id ?? 0);
+        NotifyPropertyChanged(nameof(physicians));
     }
     public event PropertyChangedEventHandler? PropertyChanged;
     private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")

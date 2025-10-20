@@ -5,10 +5,10 @@ namespace Library.TheraHealth.Services;
 
 public class PhysicianServiceProxy
 {
-    public List<Physician?> Physicians;
+    public List<Physician?> physicians;
     private PhysicianServiceProxy()
     {
-        Physicians = new List<Physician?>();
+        physicians = new List<Physician?>();
     }
     private static PhysicianServiceProxy? instance;
     private static object instanceLock = new object();
@@ -28,11 +28,11 @@ public class PhysicianServiceProxy
         }
     }
     
-    public List<Physician?> Physician
+    public List<Physician?> Physicians
     {
         get
         {
-            return Physician;
+            return physicians;
         }
     }
 
@@ -46,25 +46,25 @@ public class PhysicianServiceProxy
         if (physician.Id <= 0)
         {
             var maxId = -1;
-            if (Physicians.Any())
+            if (physicians.Any())
             {
-                maxId = Physicians.Select(b => b?.Id ?? -1).Max();
+                maxId = physicians.Select(b => b?.Id ?? -1).Max();
             }
             else
             {
                 maxId = 0;
             }
             physician.Id = ++maxId;
-            Physicians.Add(physician);
+            physicians.Add(physician);
         }
         else
         {
-            var phyToEdit = Physician.FirstOrDefault(b => (b?.Id ?? 0) == physician.Id);
+            var phyToEdit = Physicians.FirstOrDefault(b => (b?.Id ?? 0) == physician.Id);
             if (phyToEdit != null)
             {
-                var index = Physician.IndexOf(phyToEdit);
-                Physician.RemoveAt(index);
-                Physicians.Insert(index, physician);
+                var index = Physicians.IndexOf(phyToEdit);
+                Physicians.RemoveAt(index);
+                physicians.Insert(index, physician);
             }
         }
             return physician;
@@ -72,11 +72,11 @@ public class PhysicianServiceProxy
     public Physician? Delete(int id)
     {
         //get object
-        var PhysToDel = Physician
+        var PhysToDel = Physicians
             .Where(b => b != null)
             .FirstOrDefault(b => (b?.Id ?? -1) == id);
         //delete it!
-        Physician.Remove(PhysToDel);
+        Physicians.Remove(PhysToDel);
 
         return PhysToDel;
     }
