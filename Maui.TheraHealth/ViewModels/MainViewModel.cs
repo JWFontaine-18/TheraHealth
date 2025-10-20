@@ -9,19 +9,18 @@ namespace Maui.TheraHealth.ViewModels;
 public class MainViewModel : INotifyPropertyChanged
 {
 
-    public ObservableCollection<AppointmentViewModel?> Appointments
+    public ObservableCollection<PatientViewModel?> patients
     {
         get
         {
-            return new ObservableCollection<AppointmentViewModel?>
-            (AppointmentServiceProxy
+            return new ObservableCollection<PatientViewModel?>
+            (PatientServiceProxy
             .Current
-            .Appointments
+            .Patients
             .Where(
-                b => (b?.Patient?.Name?.ToUpper()?.Contains(Query?.ToUpper() ?? string.Empty) ?? false)
-                || (b?.Physician?.Name?.ToUpper()?.Contains(Query?.ToUpper() ?? string.Empty) ?? false)
+                b => b?.Name?.ToUpper()?.Contains(Query?.ToUpper() ?? string.Empty) ?? false
             )
-            .Select(b => new AppointmentViewModel(b))
+            .Select(b => new PatientViewModel(b))
             );
         }
     }
@@ -29,20 +28,20 @@ public class MainViewModel : INotifyPropertyChanged
 
     public void Refresh()
     {
-        NotifyPropertyChanged(nameof(Appointments));
+        NotifyPropertyChanged(nameof(patients));
     }
 
-    public AppointmentViewModel? selectedAppointment { get; set; }
+    public PatientViewModel? selectedPatient { get; set; }
     public string? Query { get; set; }
     public void Delete()
         {
-            if(selectedAppointment == null)
+            if(selectedPatient == null)
             {
                 return;
             }
 
-            AppointmentServiceProxy.Current.Delete(selectedAppointment?.Model?.Id ?? 0);
-            NotifyPropertyChanged(nameof(Appointments));
+            AppointmentServiceProxy.Current.Delete(selectedPatient?.Model?.Id ?? 0);
+            NotifyPropertyChanged(nameof(patients));
         }
     public event PropertyChangedEventHandler? PropertyChanged;
     private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")

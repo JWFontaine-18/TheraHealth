@@ -14,8 +14,8 @@
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level1" />
             <ListView
-                ItemsSource="{Binding Appointments}"
-                SelectedItem="{Binding selectedAppointment}"
+                ItemsSource="{Binding patients}"
+                SelectedItem="{Binding selectedPatient}"
                 >
                 <ListView.ItemTemplate>
                     <DataTemplate>

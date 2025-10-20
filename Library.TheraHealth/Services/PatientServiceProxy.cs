@@ -5,10 +5,10 @@ namespace Library.TheraHealth.Services;
 
 public class PatientServiceProxy
 {
-    public List<Patient?> Patients;
+    private List<Patient?> patients;
     private PatientServiceProxy()
     {
-        Patients = new List<Patient?>();
+        patients = new List<Patient?>();
     }
     private static PatientServiceProxy? instance;
     private static object instanceLock = new object();
@@ -28,11 +28,11 @@ public class PatientServiceProxy
         }
     }
     
-    public List<Patient?> Patient
+    public List<Patient?> Patients
     {
         get
         {
-            return Patient;
+            return patients;
         }
     }
 
@@ -72,11 +72,11 @@ public class PatientServiceProxy
     public Patient? Delete(int id)
     {
         //get object
-        var PatToDel = Patient
+        var PatToDel = patients
             .Where(b => b != null)
             .FirstOrDefault(b => (b?.Id ?? -1) == id);
         //delete it!
-        Patient.Remove(PatToDel);
+        patients.Remove(PatToDel);
 
         return PatToDel;
     }

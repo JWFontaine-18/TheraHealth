@@ -72,7 +72,7 @@ public class AppointmentServiceProxy
     }
     public Appointment? Delete(int id)
     {
-        //get blog object
+        //get object
         var apptToDel = Appointments
             .Where(b => b != null)
             .FirstOrDefault(b => (b?.Id ?? -1) == id);
