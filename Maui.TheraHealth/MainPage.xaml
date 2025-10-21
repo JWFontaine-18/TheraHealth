@@ -68,6 +68,7 @@
             <Button Text="EditPhysician" Clicked="EditPhysician"/>
             <Button Text="Delete Patient" Clicked="DeletePatient"/>
             <Button Text="Delete Physician" Clicked="DeletePhysician"/>
+            <Button Text="Add Appointment" Clicked="AddAppointment"/>
         </VerticalStackLayout>
     
     </ScrollView>

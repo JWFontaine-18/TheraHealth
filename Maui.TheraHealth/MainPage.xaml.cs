@@ -48,6 +48,11 @@ public partial class MainPage : ContentPage
         (BindingContext as MainViewModel)?.DeletePhysician();
     }
 
+    private void AddAppointment(object sender, EventArgs e)
+    {
+        Shell.Current.GoToAsync("//Appointment?appointmentId=0");
+    }
+
 
 
 

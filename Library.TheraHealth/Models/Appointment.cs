@@ -52,8 +52,4 @@ public class Appointment
         }
     }
 
-    public static implicit operator Appointment(Patient v)
-    {
-        throw new NotImplementedException();
-    }
 }
