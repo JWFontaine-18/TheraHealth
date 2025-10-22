@@ -8,8 +8,6 @@
             Text="Scheduled Appointments: "
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        <ListView
-            ItemsSource ="{Binding Appointments}"
-            />
+
     </VerticalStackLayout>
 </ContentPage>
