@@ -31,9 +31,6 @@ public class Appointment
         }
 
         return $"{Patient.Name} with {Physician.Name}";
-
-
-
     }
 
     public Appointment()
@@ -42,7 +39,7 @@ public class Appointment
     }
     public Appointment(int id)
     {
-        var apptCopy = AppointmentServiceProxy.Current.Appointments.FirstOrDefault(b => (b?.Id ?? 0) == id);
+        var apptCopy = AppointmentServiceProxy.Current.appointments.FirstOrDefault(b => (b?.Id ?? 0) == id);
 
         if (apptCopy != null)
         {

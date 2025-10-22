@@ -4,13 +4,13 @@ namespace Library.TheraHealth.Services;
 
 public class AppointmentServiceProxy
 {
-    public List<Appointment?> Appointments;
+    public List<Appointment?> appointments;
 
     // private AppointmentServiceProxy _appointmentSvc;
     // private PhysicianServiceProxy _physicianSvc;
     private AppointmentServiceProxy()
     {
-        Appointments = new List<Appointment?>();
+        appointments = new List<Appointment?>();
     }
     private static AppointmentServiceProxy? instance;
     private static object instanceLock = new object();
@@ -34,7 +34,7 @@ public class AppointmentServiceProxy
     {
         get
         {
-            return Appointments;
+            return appointments;
         }
     }
     public Appointment? AddOrUpdate(Appointment? appointment)
@@ -47,25 +47,25 @@ public class AppointmentServiceProxy
         if (appointment.Id <= 0)
         {
             var maxId = -1;
-            if (Appointments.Any())
+            if (appointments.Any())
             {
-                maxId = Appointments.Select(b => b?.Id ?? -1).Max();
+                maxId = appointments.Select(b => b?.Id ?? -1).Max();
             }
             else
             {
                 maxId = 0;
             }
             appointment.Id = ++maxId;
-            Appointments.Add(appointment);
+            appointments.Add(appointment);
         }
         else
         {
-            var appToEdit = Appointments.FirstOrDefault(b => (b?.Id ?? 0) == appointment.Id);
+            var appToEdit = appointments.FirstOrDefault(b => (b?.Id ?? 0) == appointment.Id);
             if (appToEdit != null)
             {
-                var index = Appointments.IndexOf(appToEdit);
-                Appointments.RemoveAt(index);
-                Appointments.Insert(index, appointment);
+                var index = appointments.IndexOf(appToEdit);
+                appointments.RemoveAt(index);
+                appointments.Insert(index, appointment);
             }
         }
             return appointment;
@@ -73,11 +73,11 @@ public class AppointmentServiceProxy
     public Appointment? Delete(int id)
     {
         //get object
-        var apptToDel = Appointments
+        var apptToDel = appointments
             .Where(b => b != null)
             .FirstOrDefault(b => (b?.Id ?? -1) == id);
         //delete it!
-        Appointments.Remove(apptToDel);
+        appointments.Remove(apptToDel);
 
         return apptToDel;
     }
