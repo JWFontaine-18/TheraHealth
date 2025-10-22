@@ -1,20 +1,17 @@
 using System;
 using Library.TheraHealth.Models;
+
 namespace Library.TheraHealth.Services;
 
 public class PhysicianServiceProxy
 {
-    private List<Physician?> physicians;
-
+    public List<Physician?> physicians;
     private PhysicianServiceProxy()
     {
         physicians = new List<Physician?>();
     }
-
     private static PhysicianServiceProxy? instance;
-
     private static object instanceLock = new object();
-
     public static PhysicianServiceProxy Current
     {
         get
@@ -25,11 +22,12 @@ public class PhysicianServiceProxy
                 {
                     instance = new PhysicianServiceProxy();
                 }
-                return instance;
             }
+
+            return instance;
         }
     }
-
+    
     public List<Physician?> Physicians
     {
         get
@@ -37,38 +35,50 @@ public class PhysicianServiceProxy
             return physicians;
         }
     }
-    public Physician CreatePhysician(ApplicationManager manager)
-    {
-        Console.WriteLine("\n***CREATING NEW PHYSICIAN***");
-        
-        string name = InputHelper.GetValidString("Enter name of Physician: ");
-        int license = InputHelper.GetValidInteger("Enter license number of Physician: ");
-        DateOnly graduationDate = InputHelper.GetValidDate("Enter Graduation Date of Physician (MM/DD/YYYY): ");
-        string specialization = InputHelper.GetValidString("Enter Specialization of Physician: ");
-        
-        Physician physician = new Physician(name, license, graduationDate, specialization);
-        manager.AddPhysician(physician);
-        Console.WriteLine("Physician created successfully!");
-        
-        return physician;
-    }
 
-    public static void DisplayAllPhysicians(ApplicationManager manager)
+    public Physician? AddOrUpdate(Physician? physician)
     {
-        Console.WriteLine("\n--- All Physicians ---");
-        var physicians = manager.GetPhyscians();
-
-        if (physicians.Count == 0)
+        if (physician == null)
         {
-            Console.WriteLine("No physicians found.");
-            return;
+            return null;
         }
 
-        foreach (var physician in physicians)
+        if (physician.Id <= 0)
         {
-            Console.WriteLine(physician);
+            var maxId = -1;
+            if (physicians.Any())
+            {
+                maxId = physicians.Select(b => b?.Id ?? -1).Max();
+            }
+            else
+            {
+                maxId = 0;
+            }
+            physician.Id = ++maxId;
+            physicians.Add(physician);
         }
+        else
+        {
+            var phyToEdit = Physicians.FirstOrDefault(b => (b?.Id ?? 0) == physician.Id);
+            if (phyToEdit != null)
+            {
+                var index = Physicians.IndexOf(phyToEdit);
+                Physicians.RemoveAt(index);
+                physicians.Insert(index, physician);
+            }
+        }
+            return physician;
     }
+    public Physician? Delete(int id)
+    {
+        //get object
+        var PhysToDel = Physicians
+            .Where(b => b != null)
+            .FirstOrDefault(b => (b?.Id ?? -1) == id);
+        //delete it!
+        Physicians.Remove(PhysToDel);
 
-    
+        return PhysToDel;
+    }
 }
+

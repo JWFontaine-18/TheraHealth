@@ -1,5 +1,6 @@
 using System;
 using Library.TheraHealth.Models;
+
 namespace Library.TheraHealth.Services;
 
 public class PatientServiceProxy
@@ -11,7 +12,6 @@ public class PatientServiceProxy
     }
     private static PatientServiceProxy? instance;
     private static object instanceLock = new object();
-
     public static PatientServiceProxy Current
     {
         get
@@ -22,11 +22,12 @@ public class PatientServiceProxy
                 {
                     instance = new PatientServiceProxy();
                 }
-                return instance;
             }
+
+            return instance;
         }
     }
-
+    
     public List<Patient?> Patients
     {
         get
@@ -35,45 +36,48 @@ public class PatientServiceProxy
         }
     }
 
-    public Patient CreatePatient(ApplicationManager manager)
+    public Patient? AddOrUpdate(Patient? patient)
     {
-        Console.WriteLine("\n***CREATING NEW PATIENT***");
-
-        string name = InputHelper.GetValidString("Enter name of Patient: ");
-        string address = InputHelper.GetValidString("Enter Address of Patient: ");
-        DateOnly birthday = InputHelper.GetValidDate("Enter Birthday of Patient (MM/DD/YYYY): ");
-        Race race = InputHelper.GetValidEnum<Race>("Enter Race of Patient: ");
-        Gender gender = InputHelper.GetValidEnum<Gender>("Enter Gender of Patient: ");
-        string notes = InputHelper.GetValidString("Enter Medical Notes of Patient: ");
-
-        Patient patient = new Patient(name, address, notes, race, gender, birthday);
-        manager.AddPatient(patient);
-        Console.WriteLine("Patient created successfully!");
-
-        return patient;
-    }
-
-    public static void DisplayAllPatients(ApplicationManager manager)
-    {
-        Console.WriteLine("\n--- All Patients ---");
-        var patients = manager.GetPatients();
-
-        if (patients.Count == 0)
+        if (patient == null)
         {
-            Console.WriteLine("No patients found.");
-            return;
+            return null;
         }
 
-        foreach (var patient in patients)
+        if (patient.Id <= 0)
         {
-            Console.WriteLine(patient);
+            var maxId = -1;
+            if (Patients.Any())
+            {
+                maxId = Patients.Select(b => b?.Id ?? -1).Max();
+            }
+            else
+            {
+                maxId = 0;
+            }
+            patient.Id = ++maxId;
+            Patients.Add(patient);
         }
+        else
+        {
+            var patToEdit = Patients.FirstOrDefault(b => (b?.Id ?? 0) == patient.Id);
+            if (patToEdit != null)
+            {
+                var index = Patients.IndexOf(patToEdit);
+                Patients.RemoveAt(index);
+                Patients.Insert(index, patient);
+            }
+        }
+            return patient;
     }
-    
-    public int getAge(DateOnly bday)
+    public Patient? Delete(int id)
     {
-        int currentYear = DateTime.Now.Year;
-        int age = currentYear - bday.Year;
-        return age;
+        //get object
+        var PatToDel = patients
+            .Where(b => b != null)
+            .FirstOrDefault(b => (b?.Id ?? -1) == id);
+        //delete it!
+        patients.Remove(PatToDel);
+
+        return PatToDel;
     }
 }

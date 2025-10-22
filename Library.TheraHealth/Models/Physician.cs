@@ -1,31 +1,48 @@
 using System;
+using Library.TheraHealth.Services;
 
 namespace Library.TheraHealth.Models;
 
 public class Physician
 {
-    internal string? name { get; set; }
-    internal int? license { get; set; }
+    public string? Name { get; set; }
+    
+    public int? license { get; set; }
 
-    internal DateOnly graduation { get; set; }
-
-    internal string specialization { get; set; }
-
-    public Physician(string name, int license, DateOnly grad, string specialization)
+    public DateOnly grad { get; set; }
+    
+    public string? specialization { get; set; }
+    public int Id { get; set; }
+    public Physician()
     {
-        this.name = name;
-        this.license = license;
-        this.graduation = grad;
-        this.specialization = specialization;
+
+    }
+    public Physician(int id)
+    {
+        var physicianCopy = PhysicianServiceProxy.Current.Physicians.FirstOrDefault(b => (b?.Id ?? 0) == id);
+
+        if (physicianCopy != null)
+        {
+            Id = physicianCopy.Id;
+            Name = physicianCopy.Name;
+        }
     }
 
-    public int GetYearsOfExperience()
+    public string Display
     {
-        return DateTime.Now.Year - graduation.Year;
+        get
+        {
+            return ToString();
+        }
     }
 
     public override string ToString()
     {
-        return $"{name} {license}, {graduation}, {specialization} - Years of Experience: {GetYearsOfExperience()} ";
+        if (Name == null)
+        {
+            return $"{Id}";
+        }
+
+        return $"{Id} - {Name}";
     }
 }

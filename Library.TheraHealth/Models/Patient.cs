@@ -1,57 +1,51 @@
 ﻿using System;
 using System.Net.Sockets;
+using Library.TheraHealth.Services;
 
-namespace Library.TheraHealth.Models
+namespace Library.TheraHealth.Models;
+
+public class Patient
 {
-    public enum Gender
+    public string? Name { get; set; }
+    public int Id { get; set; }
+
+    public string? address { get; set; }
+
+    public string? race { get; set; }
+    public string? gender { get; set; }
+
+    public DateOnly? bDay { get; set; }
+
+    public string Display
     {
-        MALE,
-        FEMALE,
-    };
-
-    public enum Race
-    {
-        White,
-        AfricanAmerican,
-        Asian,
-        Hispanic,
-        AmericanIndian,
-        MiddleEasternorNothernAfrican,
-        NativeHawaiian,
-        Other,
-    };
-
-    public class Patient
-    {
-        internal string name { get; set; }
-        internal string address { get; set; }
-        internal string notes { get; set; }
-        internal Gender gender { get; set; }
-        internal DateOnly bDay { get; set; }
-
-        internal Race race { get; set; }
-
-        public Patient(
-            string name = "Unknown",
-            string address = "N/A",
-            string notes = "",
-            Race race = Race.Other,
-            Gender gender = Gender.MALE,
-            DateOnly bDay = default
-        )
+        get
         {
-            this.name = name;
-            this.address = address;
-            this.race = race;
-            this.gender = gender;
-            this.notes = notes;
-            this.bDay = bDay;
-        }
-
-
-        public override string ToString()
-        {
-            return $"{name} ({gender}, {race}) - DOB: {bDay:MM/dd/yyyy}";
+            return ToString();
         }
     }
+
+    public override string ToString()
+    {
+        if (Name == null)
+        {
+            return $"{Id}";
+        }
+
+        return $"{Id} - {Name}";
+    }
+    public Patient()
+    {
+
+    }
+    public Patient(int id)
+    {
+        var patientCopy = PatientServiceProxy.Current.Patients.FirstOrDefault(b => (b?.Id ?? 0) == id);
+
+        if (patientCopy != null)
+        {
+            Id = patientCopy.Id;
+            Name = patientCopy.Name;
+        }
+    }
+
 }

@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Maui.TheraHealth"
+    xmlns:views="clr-namespace:Maui.TheraHealth.Views"
     Shell.FlyoutBehavior="Disabled"
     Title="Maui.TheraHealth">
 
@@ -11,5 +12,19 @@
         Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
+    <ShellContent
+        Title="Appointments"
+        ContentTemplate="{DataTemplate views:AppointmentsView}"
+        Route="Appointment" />
+    <ShellContent
+        Title="Patients"
+        ContentTemplate="{DataTemplate views:PatientsView}"
+        Route="Patient" />
+    <ShellContent
+        Title="Physicians"
+        ContentTemplate="{DataTemplate views:PhysicianView}"
+        Route="Physician" />
+
+    
 
 </Shell>
