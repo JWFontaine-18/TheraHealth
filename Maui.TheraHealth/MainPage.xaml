@@ -38,7 +38,7 @@
                 </ListView.ItemTemplate>
             </ListView>
             <!-- Physicians Section -->
-            <Label 
+            <Label
                 Text="Physicians"
                 FontAttributes="Bold"
                 FontSize="18"
@@ -46,6 +46,30 @@
             <ListView
                 ItemsSource="{Binding physicians}"
                 SelectedItem="{Binding selectedPhysician}"
+                >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5*"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Label Text="{Binding Model.Display}" Grid.Column="0"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <!-- Appointments Section -->
+            <Label
+                Text="Appointments"
+                FontAttributes="Bold"
+                FontSize="18"
+                Margin="0,20,0,5" />
+            <ListView
+                ItemsSource="{Binding appointments}"
+                SelectedItem="{Binding selectedAppointment}"
                 >
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -69,6 +93,8 @@
             <Button Text="Delete Patient" Clicked="DeletePatient"/>
             <Button Text="Delete Physician" Clicked="DeletePhysician"/>
             <Button Text="Add Appointment" Clicked="AddAppointment"/>
+            <Button Text="EditAppointment" Clicked="EditAppointment"/>
+            <Button Text="Delete Appointment" Clicked="DeleteAppointment"/>
         </VerticalStackLayout>
     
     </ScrollView>

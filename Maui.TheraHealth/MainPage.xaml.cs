@@ -53,7 +53,16 @@ public partial class MainPage : ContentPage
         Shell.Current.GoToAsync("//Appointment?appointmentId=0");
     }
 
+    private void EditAppointment(object sender, EventArgs e)
+    {
+        var selectedId = (BindingContext as MainViewModel)?.selectedAppointment?.Model?.Id ?? 0;
+        Shell.Current.GoToAsync($"//Appointment?appointmentId={selectedId}");
+    }
 
+    private void DeleteAppointment(object sender, EventArgs e)
+    {
+        (BindingContext as MainViewModel)?.DeleteAppointment();
+    }
 
 
 

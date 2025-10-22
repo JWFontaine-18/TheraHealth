@@ -2,12 +2,19 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Maui.TheraHealth.Views.AppointmentsView"
-             Title="AppointmentsView">
+             Title="AppointmentsView"
+             NavigatedTo="ContentPage_NavigatedTo"
+             >
     <VerticalStackLayout>
-        <Label 
-            Text="Scheduled Appointments: "
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-
+        <Label Text="Patient" />
+        <Picker x:Name="PatientPicker" ItemDisplayBinding="{Binding Name}"/>
+        <Label Text="Physician"/>
+        <Picker x:Name="PhysicianPicker" ItemDisplayBinding="{Binding Name}"/>
+        <Label Text="Date" />
+        <DatePicker x:Name="AppointmentDate"/>
+        <Label Text="Time"/>
+        <TimePicker x:Name="AppointmentTime"/>
+        <Button Text="Ok" Clicked="OkClicked"/>
+        <Button Text="Cancel" Clicked="CancelClicked"/>
     </VerticalStackLayout>
 </ContentPage>

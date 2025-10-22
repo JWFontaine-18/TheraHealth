@@ -30,7 +30,7 @@ public class Appointment
             return $"{PatientId} with {PhysicianId}";
         }
 
-        return $"{Patient.Name} with {Physician.Name}";
+        return $"{Patient.Name} with {Physician.Name} at {DateTime}";
     }
 
     public Appointment()
@@ -46,6 +46,9 @@ public class Appointment
             Id = apptCopy.Id;
             PatientId = apptCopy.PatientId;
             PhysicianId = apptCopy.PhysicianId;
+            DateTime = apptCopy.DateTime;
+            Patient = apptCopy.Patient;
+            Physician = apptCopy.Physician;
         }
     }
 

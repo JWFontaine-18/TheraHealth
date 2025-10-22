@@ -37,11 +37,65 @@ public class AppointmentServiceProxy
             return appointments;
         }
     }
+    public bool IsValidAppointmentTime(DateTime? dateTime)
+    {
+        if (dateTime == null)
+        {
+            return false;
+        }
+
+        var dt = dateTime.Value;
+
+        // Check if it's Monday-Friday (1-5)
+        if (dt.DayOfWeek == DayOfWeek.Saturday || dt.DayOfWeek == DayOfWeek.Sunday)
+        {
+            return false;
+        }
+
+        // Check if time is between 8 AM and 5 PM
+        if (dt.Hour < 8 || dt.Hour >= 17)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    public bool IsPhysicianAvailable(int physicianId, DateTime? dateTime, int? excludeAppointmentId = null)
+    {
+        if (dateTime == null)
+        {
+            return true;
+        }
+
+        // Check if physician already has an appointment at this exact time
+        var conflictingAppointment = appointments
+            .Where(a => a != null)
+            .Where(a => (a?.PhysicianId ?? 0) == physicianId)
+            .Where(a => (a?.DateTime) == dateTime)
+            .Where(a => excludeAppointmentId == null || (a?.Id ?? 0) != excludeAppointmentId)
+            .FirstOrDefault();
+
+        return conflictingAppointment == null;
+    }
+
     public Appointment? AddOrUpdate(Appointment? appointment)
     {
         if (appointment == null)
         {
             return null;
+        }
+
+        // Validate appointment time
+        if (!IsValidAppointmentTime(appointment.DateTime))
+        {
+            throw new Exception("Appointments must be scheduled Monday-Friday between 8 AM and 5 PM.");
+        }
+
+        // Check for physician availability
+        if (!IsPhysicianAvailable(appointment.PhysicianId, appointment.DateTime, appointment.Id > 0 ? appointment.Id : null))
+        {
+            throw new Exception("This physician is already booked at the selected time.");
         }
 
         if (appointment.Id <= 0)
