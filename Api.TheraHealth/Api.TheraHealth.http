@@ -1,0 +1,6 @@
+@Api.TheraHealth_HostAddress = http://localhost:5012
+
+GET {{Api.TheraHealth_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
